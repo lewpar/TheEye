@@ -1,5 +1,6 @@
 import degirum
 import cv2
+import numpy
 
 import devices
 
@@ -59,12 +60,15 @@ def main():
 
             embedding_result = embedding.predict(resized_frame)
             for embed in embedding_result.results:
-                embed_data = embed["data"].flatten()
+                # Get the vectorized embedding data and flatten it to a 1d array
+                embed_data = numpy.array(embed["data"]).flatten()
 
                 if len(previous_face) < 1:
                     previous_face = embed_data
                     continue
 
+                # Compare the vectorized data to see if they are near each other,
+                # must pass in a flattened vector
                 cosine_sim = 1 - cosine(embed_data, previous_face)
 
                 print(cosine_sim)
