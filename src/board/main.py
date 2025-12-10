@@ -3,6 +3,8 @@ import cv2
 
 import devices
 
+from scipy.spatial.distance import cosine
+
 def main():
     # TODO: Move this to an environment variable
     device_type = devices.InferencingDeviceType.CPU
@@ -18,6 +20,8 @@ def main():
     if not camera.isOpened():
         print("Failed to open camera stream.")
         return
+    
+    previous_face = []
 
     while True:
         result, frame = camera.read()
@@ -53,9 +57,17 @@ def main():
             resized_frame = cv2.resize(cropped_frame, (112, 112))
             cv2.imshow("Resized Frame", resized_frame)
 
-            #embedding_result = embedding.predict(resized_frame)
-            #print(embedding_result)
+            embedding_result = embedding.predict(resized_frame)
+            for embed in embedding_result.results:
+                embed_data = embed["data"].flatten()
 
+                if len(previous_face) < 1:
+                    previous_face = embed_data
+                    continue
+
+                cosine_sim = 1 - cosine(embed_data, previous_face)
+
+                print(cosine_sim)
     
         cv2.imshow("Camera", frame)
         cv2.pollKey()
