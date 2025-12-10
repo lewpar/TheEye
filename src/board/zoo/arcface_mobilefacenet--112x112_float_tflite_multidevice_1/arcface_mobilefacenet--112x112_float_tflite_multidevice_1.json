@@ -1,0 +1,47 @@
+{
+    "ConfigVersion": 6,
+    "Checksum": "69df42b5e9f5cb2e0b66d21b6440cd99e08ead698ee5ac6df93ae90e72ee1c6e",
+    "DEVICE": [
+        {
+            "DeviceType": "CPU",
+            "RuntimeAgent": "TFLITE",
+            "SupportedDeviceTypes": "TFLITE/ARMNN, TFLITE/CPU"
+        }
+    ],
+    "PRE_PROCESS": [
+        {
+            "InputType": "Image",
+            "InputN": 1,
+            "InputH": 112,
+            "InputW": 112,
+            "InputC": 3,
+            "InputResizeMethod": "bilinear",
+            "InputPadMethod": "stretch",
+            "InputQuantEn": false,
+            "InputColorSpace": "RGB",
+            "InputImgNormEn": true,
+            "InputImgNormCoeff": 0.00392156862,
+            "InputImgMean": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "InputImgStd": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "InputImgSliceType": "None"
+        }
+    ],
+    "MODEL_PARAMETERS": [
+        {
+            "ModelPath": "arcface_mobilefacenet--112x112_float_tflite_multidevice_1.tflite"
+        }
+    ],
+    "POST_PROCESS": [
+        {
+            "OutputPostprocessType": "None"
+        }
+    ]
+}
