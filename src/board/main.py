@@ -1,15 +1,15 @@
 import degirum
 import cv2
 
-from devices import INFERENCING_DEVICES
+import devices
 
 def main():
     # TODO: Move this to an environment variable
-    device_name = "cpu"
+    device_type = devices.InferencingDeviceType.CPU
 
     zoo = degirum.connect("@local", "./zoo")
 
-    device = INFERENCING_DEVICES[device_name]
+    device = devices.get_device_model_context(device_type)
 
     detection = zoo.load_model(device.detection_model)
     embedding = zoo.load_model(device.embedding_model)
