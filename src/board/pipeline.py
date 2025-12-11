@@ -5,6 +5,8 @@ import numpy
 from degirum.model import Model
 from devices import InferencingDeviceContext, InferencingDeviceType, get_device_model_context
 
+from scipy.spatial.distance import cosine
+
 detection_model: Model
 embedding_model: Model
 

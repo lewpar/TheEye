@@ -1,10 +1,6 @@
 
 import cv2
-import numpy
-
 import pipeline
-
-from scipy.spatial.distance import cosine
 
 def main():
     pipeline.load_models()
