@@ -1,11 +1,13 @@
+<script setup lang="ts">
+import { connect, isConnecting, isConnected } from "~/lib/websocket";
+
+connect();
+</script>
+
 <template>
   <UApp>
-    <UHeader/>
-
     <UMain>
       <NuxtPage/>
     </UMain>
-
-    <UFooter/>
   </UApp>
 </template>
