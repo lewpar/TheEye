@@ -16,6 +16,7 @@ def main():
         
         faces = pipeline.get_faces_from_frame(frame)
 
+        face_frames = []
         for face in faces:
             score = face.score
             top_left = (face.bounding_box.x1, face.bounding_box.y1)
@@ -25,11 +26,12 @@ def main():
             cv2.rectangle(frame, top_left, bottom_right, (0, 255, 0), 2)
 
             face_frame = pipeline.get_face_frame(frame, face)
-            cv2.imshow("Face Frame", face_frame)
+            face_frames.append(face_frame)
 
             embedding_data = pipeline.get_embedding_data(face_frame)
-            print(embedding_data)
+            #print(embedding_data)
     
+        cv2.imshow("Face(s)", cv2.hconcat(face_frames))
         cv2.imshow("Camera", frame)
         cv2.pollKey()
 
