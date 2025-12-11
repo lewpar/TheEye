@@ -1,5 +1,6 @@
 import degirum
 import cv2
+import numpy
 
 from degirum.model import Model
 from devices import InferencingDeviceContext, InferencingDeviceType, get_device_model_context
@@ -26,6 +27,10 @@ class InferencingFaceData:
 
     bounding_box: BoundingBox
     score: float
+
+class EmbeddingFaceData:
+    similarity: float
+    pass
 
 def load_models():
     global detection_model, embedding_model
@@ -91,3 +96,8 @@ def get_face_frame(frame: cv2.typing.MatLike, face_data: InferencingFaceData) ->
     resized_frame = cv2.resize(cropped_frame, (112, 112))
 
     return resized_frame
+
+def get_embedding_data(face_frame: cv2.typing.MatLike):
+    result = embedding_model.predict(face_frame)
+    for embed in result.results:
+        return numpy.array(embed["data"]).flatten()
